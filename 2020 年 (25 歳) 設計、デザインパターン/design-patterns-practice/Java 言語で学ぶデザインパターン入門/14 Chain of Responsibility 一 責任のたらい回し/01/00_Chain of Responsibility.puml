@@ -1,0 +1,21 @@
+@startuml
+
+
+
+class Handler <<abstract>>
+{
+    - nextHandler_ : std::shared_ptr<Handler>
+
+    + {abstract} handle_request(request : int) : void
+}
+
+class HandlerA
+{
+    + handle_request(request : int) : void
+}
+
+Handler <|-- HandlerA
+
+
+
+@enduml

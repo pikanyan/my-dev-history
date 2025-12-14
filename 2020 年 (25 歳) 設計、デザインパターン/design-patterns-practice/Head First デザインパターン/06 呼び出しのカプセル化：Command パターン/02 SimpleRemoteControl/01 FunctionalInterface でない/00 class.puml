@@ -1,0 +1,80 @@
+@startuml Command
+
+class SimpleRemoteControl <<Invoker>>
+{
+    - Command slot
+
+    + void setCommand(Command command)
+    |||
+    + void buttonWasPressed()
+}
+
+
+
+interface Command <<Command>>
+{
+    + void execute() {abstract}
+}
+
+class GarageDoorOpenCommand implements Command
+{
+    - GarageDoor garageDoor
+
+    + GarageDoorOpenCommand(GarageDoor garageDoor)
+    |||
+    + void execute() {override}
+}
+
+class GarageDoorCloseCommand
+{
+    - GarageDoor garageDoor
+
+    + GarageDoorCloseCommand(GarageDoor garageDoor)
+    |||
+    + void execute() {override}
+}
+
+class LightOnCommand
+{
+    - Light light
+
+    + LightOnCommand(Light light)
+    |||
+    + void execute() {override}
+}
+
+class LightOffCommand
+{
+    - Light light
+
+    + LightOffCommand(Light light)
+    |||
+    + void execute() {override}
+}
+
+class GarageDoor <<Receiver>>
+{
+    + void on()
+    + void down()
+    + void stop()
+    + void lightOn()
+    + void lightOff()
+}
+
+class Light
+{
+    + void on()
+    + void off()
+}
+
+SimpleRemoteControl o-- Command
+
+GarageDoorOpenCommand -[hidden] LightOnCommand
+
+GarageDoorOpenCommand --[hidden] GarageDoorCloseCommand
+GarageDoorCloseCommand o-- GarageDoor
+
+LightOnCommand --[hidden] LightOffCommand
+LightOffCommand --[hidden] Light
+
+@enduml

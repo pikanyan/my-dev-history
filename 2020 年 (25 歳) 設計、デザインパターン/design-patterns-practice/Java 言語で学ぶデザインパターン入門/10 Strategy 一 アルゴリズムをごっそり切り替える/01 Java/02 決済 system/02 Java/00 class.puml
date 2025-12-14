@@ -1,0 +1,51 @@
+@startuml Strategy
+
+class ShoppingCart
+{
+    - PaymentStrategy paymentStrategy
+
+    + void checkout(int)
+    |||
+    + void setPaymentStrategy(PaymentStrategy)
+}
+
+
+
+interface PaymentStrategy
+{
+    + void pay(int amount) {abstract}
+}
+
+class CreditCardPayment implements PaymentStrategy
+{
+    - String cardNumber
+    - String cardHolderName
+
+    + CreditCardPayment(String, String)
+    |||
+    + void pay(int amount) {override}
+}
+
+class DebitCardPayment
+{
+    - String cardNumber
+    - String cardHolderName
+
+    + DebitCardPayment(String, String)
+    |||
+    + void pay(int amount) {override}
+}
+
+class EWalletPayment
+{
+    - String walletId
+
+    + EWalletPayment(String)
+    |||
+    + void pay(int amount) {override}
+}
+
+CreditCardPayment --[hidden] DebitCardPayment
+DebitCardPayment --[hidden] EWalletPayment
+
+@enduml

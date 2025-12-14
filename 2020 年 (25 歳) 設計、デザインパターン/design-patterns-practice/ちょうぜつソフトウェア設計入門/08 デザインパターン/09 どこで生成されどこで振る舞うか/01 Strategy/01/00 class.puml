@@ -1,0 +1,39 @@
+@startuml Strategy
+
+ExpressionInterface <|.. Expressoin
+CalculationStrategyInterface <|.. PlusCalculationStrategy
+
+Expressoin o- CalculationStrategyInterface
+
+
+
+interface ExpressionInterface
+{
+    + void setVariables(array)
+    + float evaluate()
+}
+
+class Expressoin
+{
+    # array vars
+    # CalculationStrategyInterface calculationStrategy
+    
+    + void setVariables(array)
+    + float evaluate()
+    |||
+    + void setCalculationStrategy(CalculationStrategyInterfacey)
+}
+
+
+
+interface CalculationStrategyInterface
+{
+    + bool validate(array)
+    + float calculate(array)
+}
+
+class PlusCalculationStrategy
+{
+    + bool validate(array)
+    + float calculate(array)
+}

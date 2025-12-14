@@ -1,0 +1,90 @@
+@startuml Decorator
+
+abstract Beverage
+{
+    # String description = "Unknown Beverage"
+    # Size size = Size.TALL
+
+    + String getDescription()
+    + void setSize(Size size)
+    + Size getSize()
+    + double cost() {abstract}
+}
+
+class DarkRoast extends Beverage
+{
+    + DarkRoast()
+    |||
+    + double cost() {override}
+}
+
+class Decaf
+{
+    + Decaf()
+    |||
+    + double cost() {override}
+}
+
+class Espresso
+{
+    + Espresso()
+    |||
+    + double cost() {override}
+}
+
+class HouseBlend
+{
+    + HouseBlend()
+    |||
+    + double cost() {override}
+}
+
+abstract CondimentDecorator extends Beverage
+{
+    # Beverage beverage
+    |||
+    + String getDescription() {abstract}
+    + Size getSize() {override}
+}
+
+class Milk extends CondimentDecorator
+{
+    + Milk(Beverage beverage)
+    |||
+    + String getDescription() {override}
+    + double cost() {override}
+}
+
+class Mocha
+{
+    + Mocha(Beverage beverage)
+    |||
+    + String getDescription() {override}
+    + double cost() {override}
+}
+
+class Soy
+{
+    + Soy(Beverage beverage)
+    |||
+    + String getDescription() {override}
+    + double cost() {override}
+}
+
+class Whip
+{
+    + Whip(Beverage beverage)
+    |||
+    + String getDescription() {override}
+    + double cost() {override}
+}
+
+DarkRoast --[hidden] Decaf
+Decaf --[hidden] Espresso
+Espresso --[hidden] HouseBlend
+
+Milk --[hidden] Mocha
+Mocha --[hidden] Soy
+Soy --[hidden] Whip
+
+@enduml

@@ -1,0 +1,27 @@
+@startuml Decorator
+
+interface Component
+{
+    + void operate() {abstract}
+}
+
+class ConcreteComponent implements Component
+{
+    + void operate() {override}
+}
+
+abstract Decorator implements Component
+{
+    # Component component
+
+    + Decorator(Component component)
+    + void operate() {override}
+}
+
+class ConcreteDecorator extends Decorator
+{
+    + ConcreteDecorator(Component component)
+    + void operate() {override}
+}
+
+@enduml

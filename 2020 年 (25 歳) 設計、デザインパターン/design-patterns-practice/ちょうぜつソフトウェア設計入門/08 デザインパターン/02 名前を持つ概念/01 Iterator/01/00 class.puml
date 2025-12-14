@@ -1,0 +1,28 @@
+@startuml Iterator
+
+BookShelfIterator o- BookShelf : < create
+
+
+
+class BookShelfIterator
+{
+    - array elements_
+    - int position_
+
+    + mixed current() override
+    + mixed key() override
+    + void next() override
+    + void rewind() override
+    + bool valid() override
+}
+
+
+
+class BookShelf
+{
+    - array elements_
+
+    + construct(array)
+    |||
+    + Iterator getIterator() override
+}

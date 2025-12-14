@@ -1,0 +1,39 @@
+@startuml Strategy
+
+class Customer
+{
+    - DiscountStrategy discountStrategy
+
+    + Customer(DiscountStrategy)
+    |||
+    + void setDiscountStrategy(DiscountStrategy)
+    |||
+    + double calculateFinalPrice(double price)
+}
+
+
+
+interface DiscountStrategy
+{
+    + double applyDiscount(double price) {abstract}
+}
+
+class NoDiscountStrategy implements DiscountStrategy
+{
+    + double applyDiscount(double price) {override}
+}
+
+class CorporateDiscountStrategy
+{
+    + double applyDiscount(double price) {override}
+}
+
+class VipDiscountStrategy
+{
+    + double applyDiscount(double price) {override}
+}
+
+NoDiscountStrategy --[hidden] CorporateDiscountStrategy
+CorporateDiscountStrategy --[hidden] VipDiscountStrategy
+
+@enduml

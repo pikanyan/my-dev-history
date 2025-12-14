@@ -1,0 +1,27 @@
+@startuml
+
+class Flyweight <<abstract>>
+{
+    + {abstract} operate() : void
+}
+
+class FlyweightA
+{
+    + operate() : void
+}
+
+Flyweight <|-- FlyweightA
+
+
+
+class FlyweightFactory
+{
+    - flyweights : std::map<std::string, std::shared_ptr<Flyweight>>
+
+    + get_flyweight(key : const std::string&)  : std::shared_ptr<Flyweight>
+}
+
+
+
+@enduml
+

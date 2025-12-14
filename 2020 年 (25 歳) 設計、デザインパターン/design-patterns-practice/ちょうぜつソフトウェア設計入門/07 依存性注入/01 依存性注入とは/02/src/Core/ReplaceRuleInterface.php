@@ -1,0 +1,13 @@
+<?php
+
+namespace FizzBuzz\Core;
+
+
+
+interface ReplaceRuleInterface
+{
+    // public function replace(int $n): string;
+
+    public function apply(string $carry, int $n): string;
+    public function match(string $carry, int $n): bool;
+}

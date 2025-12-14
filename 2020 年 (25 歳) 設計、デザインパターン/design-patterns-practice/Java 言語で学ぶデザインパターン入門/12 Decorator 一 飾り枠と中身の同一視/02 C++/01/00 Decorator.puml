@@ -1,0 +1,33 @@
+@startuml
+
+
+
+Component <|-- Decorator
+Decorator <|-- DecoratorA
+Component <|-- ComponentA
+
+class Component <<abstract>>
+{
+    + {abstract} operate() : void
+}
+
+class Decorator
+{
+    - component_ : std::shared_ptr<Component>
+
+    + operate() : void
+}
+
+class DecoratorA
+{
+    + operate() : void
+}
+
+class ComponentA
+{
+    + operate() : void
+}
+
+
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml Observer
+
+abstract NumberGenerator <<Subject>>
+{
+    - ArrayList observers
+
+    + public void addObserver(Observer observer)
+    + void deleteObserver(Observer observer)
+    + void notifyObservers()
+    |||
+    + int getNumber() {abstract}
+    + void execute() {abstract}
+}
+
+class RandomNumberGenerator extends NumberGenerator
+{
+    - Random random
+    - int number
+
+    + int getNumber() {override}
+    + void execute() {override}
+}
+
+
+
+interface Observer <<Observer>>
+{
+    + void update() {abstract}
+}
+
+class DigitObserver implements Observer
+{
+    + void update() {override}
+}
+
+class GraphObserver
+{
+    + void update() {override}
+}
+
+DigitObserver --[hidden] GraphObserver
+
+@enduml

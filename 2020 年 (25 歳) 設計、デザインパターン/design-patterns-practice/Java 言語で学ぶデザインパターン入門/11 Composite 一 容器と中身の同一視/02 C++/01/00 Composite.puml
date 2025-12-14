@@ -1,0 +1,27 @@
+@startuml
+
+
+
+Component <|-- Composite
+Component <|-- Leaf
+
+class Component <<abstract>>
+{
+    + {abstract} operate() : void
+}
+
+class Composite
+{
+    - children_ : std::vector<std::shared_ptr<Component>>
+
+    + operate() : void
+}
+
+class Leaf
+{
+    + operate() : void
+}
+
+
+
+@enduml

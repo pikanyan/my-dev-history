@@ -1,0 +1,82 @@
+@startuml class
+
+class Hand
+{
+    + final int HANDVALUE_GUU = 0 {static}
+    + final int HANDVALUE_CHO = 1 {static}
+    + final int HANDVALUE_PAA = 2 {static}
+    + final Hand[] hands {static}
+    + final String[] names {static}
+    |||
+    - int handValue
+
+    - Hand(int)
+    |||
+    + Hand getHand(int) {static}
+    + boolean isStrongerThan(Hand)
+    + boolean isWeakerThan(Hand)
+    |||
+    + String toString()
+    |||
+    - int fight(Hand)
+}
+
+@enduml
+
+
+
+@startuml Strategy
+
+class Player <<Context>>
+{
+    - Strategy strategy
+    |||
+    - String name
+    - int gameCount
+    - int winCount
+    - int loseCount
+
+    + Player(Strategy, String)
+    |||
+    + Hand nextHand()
+    + void win()
+    + void lose()
+    + void even()
+    |||
+    + String toString()
+}
+
+interface Strategy <<Strategy>>
+{
+    + Hand nextHand() {abstract}
+    + void study(boolean) {abstract}
+}
+
+class ProbStrategy implements Strategy
+{
+    - Random random
+    - int prevHandValue = 0
+    - int currentHandValue = 0
+    - int[][] history
+
+    + ProbStrategy(int)
+    |||
+    + Hand nextHand() {override}
+    + void study(boolean) {override}
+    |||
+    - int getSum(int hv)
+}
+
+class WinningStrategy
+{
+    - Random random
+    - boolean won = false
+    - Hand prevHand
+    
+    + Hand nextHand() {override}
+    + void study(boolean) {override}
+}
+
+ProbStrategy --[hidden] WinningStrategy
+
+@enduml

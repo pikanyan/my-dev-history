@@ -1,0 +1,28 @@
+@startuml
+
+
+
+Command <|-- CommandA
+
+class Command <<abstract>>
+{
+    + {abstract} execute() : void
+}
+
+class CommandA
+{
+    + execute() : void
+}
+
+
+
+class Invoker
+{
+    - command_ : std::shared_ptr<Command>
+
+    + invoke()  : void 
+}
+
+
+
+@enduml

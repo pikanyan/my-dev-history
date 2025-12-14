@@ -1,0 +1,45 @@
+@startuml Template
+
+AbstractDisplay <|-- CharDisplay
+AbstractDisplay <|-- StringDisplay
+
+
+
+abstract class AbstractDisplay
+{
+   + explicit AbstractDisplay()
+   + virtual ~AbstractDisplay()
+   |||
+   + void display() <<template>>
+   # {abstract} virtual void open()
+   # {abstract} virtual void print()
+   # {abstract} virtual void close()
+}
+
+class CharDisplay
+{
+   - const char ch_
+
+   + explicit CharDisplay(char)
+   + virtual ~CharDisplay()
+   |||
+   # {override} void open()
+   # {override} void print()
+   # {override} void close()
+}
+
+class StringDisplay
+{
+   - const std::string str_
+  
+   + explicit StringDisplay(const std::string&)
+   + virtual ~StringDisplay()
+   |||
+   # {override} void open()
+   # {override} void print()
+   # {override} void close() 
+   |||
+   - void printLine() 
+}
+
+@enduml

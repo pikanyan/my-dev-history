@@ -1,0 +1,75 @@
+@startuml Strategy
+
+abstract Character <<Context>>
+{
+    # WeaponBehavior weaponBehavior
+
+    + void fight() {abstract}
+    |||
+    + void setWeapon(WeaponBehavior)
+}
+
+class King extends Character
+{
+    + King()
+    |||
+    + void fight() {override}
+}
+
+class Knight
+{
+    + Knight()
+    |||
+    + void fight() {override}
+}
+
+class Queen
+{
+    + Queen()
+    |||
+    + void fight() {override}
+}
+
+class Troll
+{
+    + RubberDuck()
+    |||
+    + void fight() {override}
+}
+
+King --[hidden] Knight
+Knight --[hidden] Queen
+Queen --[hidden] Troll
+
+
+
+interface WeaponBehavior <<Strategy>>
+{
+    + void useWeapon() {abstract}
+}
+
+class AxeBehavior implements WeaponBehavior
+{
+    + void useWeapon() {override}
+}
+
+class BowAndArrowBehavior
+{
+    + void useWeapon() {override}
+}
+
+class KnifeBehavior
+{
+    + void useWeapon() {override}
+}
+
+class SwordBehavior
+{
+    + void useWeapon() {override}
+}
+
+AxeBehavior --[hidden] BowAndArrowBehavior
+BowAndArrowBehavior --[hidden] KnifeBehavior
+KnifeBehavior --[hidden] SwordBehavior
+
+@enduml

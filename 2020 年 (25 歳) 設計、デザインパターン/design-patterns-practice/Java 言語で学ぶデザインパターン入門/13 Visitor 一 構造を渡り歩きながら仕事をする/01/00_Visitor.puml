@@ -1,0 +1,38 @@
+@startuml
+
+
+
+class Visitor <<データ操作>>
+{
+    + {abstract} visit_elementA(element : std::shared_ptr<ElementA>) : void
+    + {abstract} visit_elementB(element : std::shared_ptr<ElementB>) : void
+}
+
+class VisitorA
+{
+    + visit_elementA(element : std::shared_ptr<ElementA>) : void
+    + visit_elementB(element : std::shared_ptr<ElementB>) : void
+}
+
+class VisitorB
+{
+    + visit_elementA(element : std::shared_ptr<ElementA>) : void
+    + visit_elementB(element : std::shared_ptr<ElementB>) : void
+}
+
+Visitor <|-- VisitorA
+Visitor <|-- VisitorB
+
+
+
+class Element <<データ構造>>
+{
+    + {abstract} accept(visitor: Visitor*)  : void 
+}
+
+Element <|-- ElementA
+Element <|-- ElementB
+
+
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml Observer
+
+class Model <<Subject>>
+{
+    - List<Observer> observers
+    - int value
+
+    + void addObserver(Observer observer)
+    |||
+    + void setValue(int value)
+    + int getValue()
+    |||
+    + void notifyObservers()
+}
+
+
+
+interface Observer
+{
+    + void update() {abstract}
+}
+
+class View implements Observer
+{
+    - Model model
+
+    + View(Model model)
+    |||
+    + void update() {override}
+}
+
+
+
+class Controller
+{
+    - Model model
+    |||
+    + Controller(Model model)
+    |||
+    + void setValue(int value)
+}
+
+@enduml

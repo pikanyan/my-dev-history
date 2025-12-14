@@ -1,0 +1,52 @@
+@startuml Strategy
+
+abstract PhoneCameraApp <<Context>>
+{
+    # ShareStrategy shareStrategy
+
+    + void edit() {abstract}
+    + void save()
+    + void share()
+    + void take()
+    |||
+    + void setShareStrategy(ShareStrategy)
+}
+
+class BasicCameraApp extends PhoneCameraApp
+{
+    + void edit() {override}
+}
+
+class CameraPlusApp
+{
+    + void edit() {override}
+}
+
+BasicCameraApp --[hidden] CameraPlusApp
+
+
+
+interface ShareStrategy <<Strategy>>
+{
+    + void share() {abstract}
+}
+
+class Email implements ShareStrategy
+{
+    + void share() {override}
+}
+
+class Social
+{
+    + void share() {override}
+}
+
+class Txt
+{
+    + void share() {override}
+}
+
+Email --[hidden] Social
+Social --[hidden] Txt
+
+@enduml

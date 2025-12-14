@@ -1,0 +1,157 @@
+@startuml Command
+
+class RemoteControl <<Invoker>>
+{
+    - Command[] onCommands
+    - Command[] offCommands
+
+    + RemoteControl()
+    |||
+    + void setCommand(int, Command, Command)
+    |||
+    + void onButtonWasPressed(int)
+    + void offButtonWasPressed(int)
+    |||
+    + String toString()
+}
+
+
+
+interface Command <<Command>>
+{
+    + void execute() {abstract}
+}
+
+class CeilingFanOnCommand implements Command
+{
+    - CeilingFan ceilingFan
+
+    + CeilingFanOnCommand(CeilingFan)
+    + void execute() {override}
+}
+
+class CeilingFanOffCommand
+{
+    - CeilingFan ceilingFan
+
+    + CeilingFanOffCommand(CeilingFan)
+    + void execute() {override}
+}
+
+class GarageDoorUpCommand
+{
+    - GarageDoor garageDoor
+
+    + GarageDoorUpCommand(GarageDoor)
+    + void execute() {override}
+}
+
+class GarageDoorDownCommand
+{
+    - GarageDoor garageDoor
+
+    + GarageDoorDownCommand(GarageDoor)
+    + void execute() {override}
+}
+
+class LightOnCommand
+{
+    - Light light
+
+    + LightOnCommand(Light)
+    + void execute() {override}
+}
+
+class LightOffCommand
+{
+    - Light light
+
+    + LightOffCommand(Light)
+    + void execute() {override}
+}
+
+class StereoOnWithCDCommand
+{
+    - Stereo stereo
+
+    + StereoOnWithCDCommand(Stereo)
+    + void execute() {override}
+    + void undo()
+}
+
+class StereoOffCommand
+{
+    - Stereo stereo
+
+    + StereoOffCommand(Stereo)
+    + void execute() {override}
+    + void undo()
+}
+
+class NoCommand
+{
+    + void execute() {override}
+}
+
+
+
+class CeilingFan <<Receiver>>
+{
+    - int level
+    - String location
+    
+    + high()
+    + medium()
+    + low()
+    + off()
+}
+
+class GarageDoor
+{
+    - String location
+    
+    + up()
+    + down()
+    + stop()
+    + lightOn()
+    + lightOff()
+}
+
+class Light
+{
+    - String location
+    
+    + on()
+    + off()
+}
+
+class Stereo
+{
+    - String location
+    
+    + on()
+    + off()
+    + setCD()
+    + setVolume()
+}
+
+RemoteControl o-- Command
+
+CeilingFanOnCommand -[hidden] GarageDoorUpCommand
+GarageDoorUpCommand -[hidden] LightOnCommand
+LightOnCommand -[hidden] StereoOnWithCDCommand
+StereoOnWithCDCommand -[hidden] NoCommand
+
+CeilingFanOnCommand --[hidden] CeilingFanOffCommand
+CeilingFanOffCommand o-- CeilingFan
+
+GarageDoorUpCommand --[hidden] GarageDoorDownCommand
+GarageDoorDownCommand --[hidden] GarageDoor
+
+LightOnCommand --[hidden] LightOffCommand
+LightOffCommand --[hidden] Light
+
+StereoOnWithCDCommand --[hidden] StereoOffCommand
+StereoOffCommand --[hidden] Stereo
+
+@enduml

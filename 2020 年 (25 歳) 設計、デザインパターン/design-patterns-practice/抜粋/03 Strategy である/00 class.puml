@@ -1,0 +1,93 @@
+@startuml Strategy
+
+abstract Duck <<Context>>
+{
+    # FlyBehavior flyBehavior
+    # QuackBehavior quackBehavior
+
+    + void display() {abstract}
+    + void fly()
+    + void quack()
+    + void swim()
+    |||
+    + void setFlyBehavior(FlyBehavior)
+    + void setQuackBehavior(QuackBehavior)
+}
+
+class DecoyDuck extends Duck
+{
+    + DecoyDuck()
+    |||
+    + void display() {override}
+}
+
+class MallardDuck
+{
+    + MallardDuck()
+    |||
+    + void display() {override}
+}
+
+class RedheadDuck
+{
+    + RedheadDuck()
+    |||
+    + void display() {override}
+}
+
+class RubberDuck
+{
+    + RubberDuck()
+    |||
+    + void display() {override}
+}
+
+DecoyDuck --[hidden] MallardDuck
+MallardDuck --[hidden] RedheadDuck
+RedheadDuck --[hidden] RubberDuck
+
+
+
+interface FlyBehavior <<Strategy>>
+{
+    + void fly() {abstract}
+}
+
+class FlyNoWay implements FlyBehavior
+{
+    + void fly() {override}
+}
+
+class FlyWithWings
+{
+    + void fly() {override}
+}
+
+FlyNoWay --[hidden] FlyWithWings
+
+
+
+interface QuackBehavior <<Strategy>>
+{
+    + void quack() {abstract}
+}
+
+class MuteQuack implements QuackBehavior
+{
+    + void quack() {override}
+}
+
+class Quack
+{
+    + void quack() {override}
+}
+
+class Squeak
+{
+    + void quack() {override}
+}
+
+MuteQuack --[hidden] Quack
+Quack --[hidden] Squeak
+
+@enduml

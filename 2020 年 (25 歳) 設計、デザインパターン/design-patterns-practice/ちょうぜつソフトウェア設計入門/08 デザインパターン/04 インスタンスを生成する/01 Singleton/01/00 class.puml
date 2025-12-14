@@ -1,0 +1,21 @@
+@startuml Singleton
+
+SomeInterface <|.. SomeSingleton
+
+
+
+interface SomeInterface
+{
+    + void doSomething()
+}
+
+class SomeSingleton
+{
+    - SomeSingleton theInstance
+    
+    - construct()
+    |||
+    + void doSomething() override
+    |||
+    + SomeSingleton getInstance
+}

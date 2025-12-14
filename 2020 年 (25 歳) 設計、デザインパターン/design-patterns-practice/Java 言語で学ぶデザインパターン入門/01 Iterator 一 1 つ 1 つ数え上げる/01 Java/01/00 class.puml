@@ -1,0 +1,27 @@
+@startuml Iterator
+
+BookShelfIterator o- BookShelf : < create
+
+
+
+class BookShelfIterator
+{
+    - String[] elements_
+    - int position_
+
+    + BookShelfIterator(String[])
+    |||
+    + boolean hasNext() override
+    + String next() override
+}
+
+
+
+class BookShelf
+{
+    - String[] elements_
+
+    + BookShelf(String[] elements_)
+    |||
+    + Iterator<String> iterator() override
+}

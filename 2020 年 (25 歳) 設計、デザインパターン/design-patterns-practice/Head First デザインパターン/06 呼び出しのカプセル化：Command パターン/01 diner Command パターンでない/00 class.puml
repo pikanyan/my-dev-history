@@ -1,0 +1,55 @@
+@startuml Command
+
+Customer -> Order
+
+Waitress o-- Order
+BurgerAndFriesOrder o-- Cook
+
+
+
+class Customer <<Client>>
+{
+    # Waitress waitress
+    # Order order
+
+    + Customer(Waitress waitress)
+    |||
+    + void createOrder(Order order)
+    |||
+    + void hungry()
+}
+
+
+
+class Waitress <<Invoker>>
+{
+    # Order order
+
+    + void setCommand(Order order)
+}
+
+
+
+interface Order <<Command>>
+{
+    + void execute() {abstract}
+}
+
+class BurgerAndFriesOrder implements Order
+{
+    # Cook cook
+
+    + BurgerAndFriesOrder(Cook cook)
+    |||
+    + void orderUp() {override}
+}
+
+
+
+class Cook <<Receiver>>
+{
+    + void makeBurger()
+    + void makeFries()
+}
+
+@enduml

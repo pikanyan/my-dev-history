@@ -1,0 +1,39 @@
+@startuml not Factory
+
+PizzaStore -> SimplePizzaFactory
+SimplePizzaFactory -> Pizza
+
+
+
+class PizzaStore <<Creator>>
+{
+    - SimplePizzaFactory factory
+    
+    + Pizza orderPizza(String type)
+}
+
+class SimplePizzaFactory <<Creator>>
+{
+    + Pizza createPizza(String type)
+}
+
+class Pizza <<Product>>
+{
+    + void prepare()
+    + void bake()
+    + void cut()
+    + void box()
+}
+
+class CheesePizza extends Pizza
+class ClamPizza
+class GreekPizza
+class PepperoniPizza
+class VeggiePizza
+
+CheesePizza --[hidden] ClamPizza
+ClamPizza --[hidden] GreekPizza
+GreekPizza --[hidden] PepperoniPizza
+PepperoniPizza --[hidden] VeggiePizza
+
+@enduml

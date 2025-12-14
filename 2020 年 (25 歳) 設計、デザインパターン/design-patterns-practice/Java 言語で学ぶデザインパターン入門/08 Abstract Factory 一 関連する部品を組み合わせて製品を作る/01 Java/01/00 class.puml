@@ -1,0 +1,151 @@
+@startuml class
+
+package factory
+{
+    abstract Item
+    {
+        # String caption
+
+        + Item(String caption)
+        + String makeHTML() {abstract}
+    }
+
+    abstract Link extends Item
+    {
+        # String url
+
+        + Link(String caption, String url)
+    }
+
+    abstract Tray extends Item
+    {
+        # ArrayList<Item> tray
+
+        + Tray(String caption)
+        |||
+        + void add(Item item)
+    }
+}
+
+@enduml
+
+
+
+@startuml Abstract Factory
+
+factory.Factory -> factory.Link
+factory.Link -[hidden] factory.Page
+factory.Page -[hidden] factory.Tray
+
+listfactory.ListFactory --[hidden] tablefactory.TableFactory
+listfactory.ListLink --[hidden] tablefactory.TableLink
+listfactory.ListPage --[hidden] tablefactory.TablePage
+listfactory.ListTray --[hidden] tablefactory.TableTray
+
+
+
+package factory
+{
+    abstract Factory
+    {
+        + Factory getFactory(String classname) {static}
+        |||
+        + Link createLink(String caption, String url) {abstract}
+        + Tray createTray(String caption) {abstract}
+        + Page createPage(String title, String author) {abstract}
+    }
+
+    abstract Link
+    {
+        # String url
+
+        + Link(String caption, String url)
+    }
+
+    abstract Page
+    {
+        # String title
+        # String author
+        # ArrayList<Item> content
+
+        + Page(String title, String author)
+        |||
+        + void add(Item item)
+        + void output()
+        |||
+        + String makeHTML() {abstract}
+    }
+
+    abstract Tray
+    {
+        # ArrayList<Item> tray
+
+        + Tray(String caption)
+        |||
+        + void add(Item item)
+    }
+}
+
+package listfactory
+{
+    class ListFactory extends factory.Factory
+    {
+        + Link createLink(String caption, String url) {override}
+        + Tray createTray(String caption) {override}
+        + Page createPage(String title, String author) {override}
+    }
+
+    class ListLink extends factory.Link
+    {
+        + ListLink(String caption, String url)
+        |||
+        + String makeHTML() {override}
+    }
+
+    class ListPage extends factory.Page
+    {
+        + ListPage(String title, String author)
+        |||
+        + String makeHTML() {override}
+    }
+
+    class ListTray extends factory.Tray
+    {
+        + ListTray(String caption)
+        |||
+        + String makeHTML() {override}
+    }
+}
+
+package tablefactory
+{
+    class TableFactory
+    {
+        + Link createLink(String caption, String url) {override}
+        + Tray createTray(String caption) {override}
+        + Page createPage(String title, String author) {override}
+    }
+
+    class TableLink
+    {
+        + TableLink(String caption, String url)
+        |||
+        + String makeHTML() {override}
+    }
+
+    class TableTray
+    {
+        + TableTray(String caption)
+        |||
+        + String makeHTML() {override}
+    }
+
+    class TablePage
+    {
+        + TablePage(String title, String author)
+        |||
+        + String makeHTML() {override}
+    }
+}
+
+@enduml

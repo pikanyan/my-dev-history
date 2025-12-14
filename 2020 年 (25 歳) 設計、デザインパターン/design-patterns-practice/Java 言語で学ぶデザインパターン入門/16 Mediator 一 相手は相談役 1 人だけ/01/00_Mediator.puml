@@ -1,0 +1,27 @@
+@startuml
+
+
+
+class Colleague <<abstract>>
+{
+    + send(message : const QString&) : void
+    
+    + {abstract} receive(message : const QString&) : void
+}
+
+class ColleagueA
+{
+    + receive(message : const QString&) : void
+}
+
+class ColleagueB
+{
+    + receive(message : const QString&) : void
+}
+
+Colleague <|-- ColleagueA
+Colleague <|-- ColleagueB
+
+
+
+@enduml

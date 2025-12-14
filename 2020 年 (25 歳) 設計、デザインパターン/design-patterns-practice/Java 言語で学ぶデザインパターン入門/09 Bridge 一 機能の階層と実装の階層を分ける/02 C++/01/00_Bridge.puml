@@ -1,0 +1,41 @@
+@startuml
+
+
+
+Implementor <|-- ImplementorA
+Implementor <|-- ImplementorB
+
+class Implementor <<機能>>
+{
+    + {abstract} operate() : void
+}
+
+class ImplementorA
+{
+    + operate() : void
+}
+
+class ImplementorB
+{
+    + operate() : void
+}
+
+
+
+Abstraction <|-- AbstractionA
+
+class Abstraction <<実装>>
+{
+    - implementor_ : std::unique_ptr<Implementor>
+
+    + {virtual} operate() : void
+}
+
+class AbstractionA
+{
+    + operate() : void
+}
+
+
+
+@enduml

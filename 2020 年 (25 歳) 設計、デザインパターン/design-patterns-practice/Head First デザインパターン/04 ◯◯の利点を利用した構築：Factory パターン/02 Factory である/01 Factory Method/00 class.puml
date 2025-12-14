@@ -1,0 +1,123 @@
+@startuml Factory Method
+
+PizzaStore -> Pizza
+
+
+
+abstract PizzaStore <<Creator>>
+{
+    + Pizza orderPizza(String type)
+    # Pizza createPizza(String type) {abstract}
+}
+
+class CaliforniaPizzaStore extends PizzaStore
+{
+    # Pizza createPizza(String type) {override}
+}
+
+class ChicagoPizzaStore
+{
+    # Pizza createPizza(String type) {override}
+}
+
+class NYPizzaStore
+{
+    # Pizza createPizza(String type) {override}
+}
+
+CaliforniaPizzaStore --[hidden] ChicagoPizzaStore
+ChicagoPizzaStore --[hidden] NYPizzaStore
+
+
+
+abstract Pizza <<Product>>
+{
+    # String name
+    # String dough
+    # String sauce
+    # List<String> toppings
+
+    + void prepare()
+    + void bake()
+    + void cut()
+    + void box()
+    + String getName()
+}
+
+class CaliforniaStyleCheesePizza extends Pizza
+{
+    + CaliforniaStyleCheesePizza()
+}
+
+class CaliforniaStyleClamPizza
+{
+    + CaliforniaStyleClamPizza()
+}
+
+class CaliforniaStylePepperoniPizza
+{
+    + CaliforniaStylePepperoniPizza()
+}
+
+class CaliforniaStyleVeggiePizza
+{
+    + CaliforniaStyleVeggiePizza()
+}
+
+class ChicagoStyleCheesePizza
+{
+    + ChicagoStyleCheesePizza()
+}
+
+class ChicagoStyleClamPizza
+{
+    + ChicagoStyleClamPizza()
+}
+
+class ChicagoStylePepperoniPizza
+{
+    + ChicagoStylePepperoniPizza()
+}
+
+class ChicagoStyleVeggiePizza
+{
+    + ChicagoStyleVeggiePizza()
+}
+
+class NYStyleCheesePizza
+{
+    + NYStyleCheesePizza()
+}
+
+class NYStyleClamPizza
+{
+    + NYStyleClamPizza()
+}
+
+class NYStylePepperoniPizza
+{
+    + NYStylePepperoniPizza()
+}
+
+class NYStyleVeggiePizza
+{
+    + NYStyleVeggiePizza()
+}
+
+CaliforniaStyleCheesePizza -[hidden] CaliforniaStyleClamPizza
+CaliforniaStyleClamPizza -[hidden] CaliforniaStylePepperoniPizza
+CaliforniaStylePepperoniPizza -[hidden] CaliforniaStyleVeggiePizza
+
+CaliforniaStyleCheesePizza --[hidden] ChicagoStyleCheesePizza
+ChicagoStyleCheesePizza --[hidden] NYStyleCheesePizza
+
+CaliforniaStyleClamPizza --[hidden] ChicagoStyleClamPizza
+ChicagoStyleClamPizza --[hidden] NYStyleClamPizza
+
+CaliforniaStylePepperoniPizza --[hidden] ChicagoStylePepperoniPizza
+ChicagoStylePepperoniPizza --[hidden] NYStylePepperoniPizza
+
+CaliforniaStyleVeggiePizza --[hidden] ChicagoStyleVeggiePizza
+ChicagoStyleVeggiePizza --[hidden] NYStyleVeggiePizza
+
+@enduml

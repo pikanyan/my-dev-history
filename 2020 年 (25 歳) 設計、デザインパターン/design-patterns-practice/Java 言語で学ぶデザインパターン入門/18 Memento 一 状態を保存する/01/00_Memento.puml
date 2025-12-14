@@ -1,0 +1,20 @@
+@startuml
+
+
+
+class Memento <<記憶>>
+{
+    - state_ : int
+}
+
+class Originator <<発案>>
+{
+    - state_ : int
+
+    + create_memento() : std::shared_ptr<Memento>
+    + set_memento(memento : const std::shared_ptr<Memento>&)  : void 
+}
+
+
+
+@enduml

@@ -1,0 +1,96 @@
+@startuml class
+
+interface BeatModelInterface
+{
+    + void initialize() {abstract}
+	+ void on() {abstract}
+	+ void off() {abstract}
+    + void setBPM(int bpm) {abstract}
+
+	+ int getBPM() {abstract}
+	+ void registerObserver(BeatObserver o) {abstract}
+	+ void removeObserver(BeatObserver o) {abstract}
+	+ void registerObserver(BPMObserver o) {abstract}
+	+ void removeObserver(BPMObserver o) {abstract}
+}
+
+class BeatModel implements BeatModelInterface
+{
+    ~ List<BeatObserver> beatObservers
+    ~ List<BPMObserver> bpmObservers
+
+    ~ int bpm = 90;
+    
+    ~ Thread thread;
+	~ boolean stop = false;
+
+    ~ Clip clip;
+
+    + void initialize() {override}
+	+ void on() {override}
+	+ void off() {override}
+    + void setBPM(int bpm) {override}
+
+	+ int getBPM() {override}
+	+ void registerObserver(BeatObserver o) {override}
+	+ void removeObserver(BeatObserver o) {override}
+	+ void registerObserver(BPMObserver o) {override}
+	+ void removeObserver(BPMObserver o) {override}
+
+    + void void run() {override}
+}
+
+
+
+interface ControllerInterface
+{
+    + void start() {abstract}
+	+ void stop() {abstract}
+	+ void increaseBPM() {abstract}
+	+ void decreaseBPM() {abstract}
+ 	+ void setBPM(int bpm) {abstract}
+}
+
+class BeatController implements ControllerInterface
+{
+    ~ BeatModelInterface model
+    ~ DJView view
+
+    + BeatController(BeatModelInterface model)
+}
+
+
+
+
+interface BeatObserver
+{
+    + void updateBeat() {abstract}
+}
+
+interface BPMObserver
+{
+    + void updateBPM() {abstract}
+}
+
+class DJView implements BeatObserver, BPMObserver
+{
+    ~ BeatModelInterface model
+    ~ ControllerInterface controller
+
+    + public DJView(ControllerInterface controller, BeatModelInterface model)
+
+    + public void createView()
+    + public void createControls()
+
+    + void enableStopMenuItem()
+    + void disableStopMenuItem()
+    + void enableStartMenuItem()
+    + void disableStartMenuItem()
+
+    + void void actionPerformed(ActionEvent event) {override}
+
+    + void updateBeat() {override}
+    + void updateBPM() {override}
+}
+
+@enduml

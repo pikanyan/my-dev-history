@@ -1,0 +1,43 @@
+@startuml not Decorator
+
+abstract Beverage
+{
+    # String description = "Unknown Beverage"
+
+    + String getDescription()
+    + double cost() {abstract}
+}
+
+class DarkRoast extends Beverage
+{
+    + DarkRoast()
+    |||
+    + double cost() {override}
+}
+
+class Decaf
+{
+    + Decaf()
+    |||
+    + double cost() {override}
+}
+
+class Espresso
+{
+    + Espresso()
+    |||
+    + double cost() {override}
+}
+
+class HouseBlend
+{
+    + HouseBlend()
+    |||
+    + double cost() {override}
+}
+
+DarkRoast --[hidden] Decaf
+Decaf --[hidden] Espresso
+Espresso --[hidden] HouseBlend
+
+@enduml

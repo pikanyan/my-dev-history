@@ -1,0 +1,34 @@
+@startuml
+
+
+
+class State <<abstract>>
+{
+    + {abstract} handle() : void
+}
+
+class StateA
+{
+    + handle() : void
+}
+
+class StateB
+{
+    + handle() : void
+}
+
+State <|-- StateA
+State <|-- StateB
+
+
+
+class Context
+{
+    - state_ : std::shared_ptr<State>
+
+    + request()  : void 
+}
+
+
+
+@enduml

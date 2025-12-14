@@ -1,0 +1,286 @@
+@startuml Abstract Factory
+
+abstract PizzaStore <<Creator>>
+{
+    + Pizza orderPizza(String type)
+    # {abstract} Pizza createPizza(String type)
+}
+
+class CaliforniaPizzaStore extends PizzaStore
+{
+    # Pizza createPizza(String type) {override}
+}
+
+class ChicagoPizzaStore
+{
+    # Pizza createPizza(String type) {override}
+}
+
+class NYPizzaStore
+{
+    # Pizza createPizza(String type) {override}
+}
+
+CaliforniaPizzaStore --[hidden] ChicagoPizzaStore
+ChicagoPizzaStore --[hidden] NYPizzaStore
+
+
+
+abstract Pizza <<Product>>
+{
+    # String name
+    # Cheese cheese
+    # Clams clams
+    # Dough dough
+    # Pepperoni pepperoni
+    # Sauce sauce
+    # Veggies[] veggies
+
+    + {abstract} void prepare()
+    + void bake()
+    + void cut()
+    + void box()
+
+    + void setName(String name)
+    + String getName()
+
+    + String toString()
+}
+
+class CheesePizza extends Pizza
+{
+    # PizzaIngredientFactory ingredientFactory
+    
+    + CheesePizza(PizzaIngredientFactory ingredientFactory)
+    + void prepare() {override}
+}
+
+class ClamPizza
+{
+    # PizzaIngredientFactory ingredientFactory
+    
+    + ClamPizza(PizzaIngredientFactory ingredientFactory)
+    + void prepare() {override}
+}
+
+class PepperoniPizza
+{
+    # PizzaIngredientFactory ingredientFactory
+    
+    + PepperoniPizza(PizzaIngredientFactory ingredientFactory)
+    + void prepare() {override}
+}
+
+class VeggiePizza
+{
+    # PizzaIngredientFactory ingredientFactory
+    
+    + VeggiePizza(PizzaIngredientFactory ingredientFactory)
+    + void prepare() {override}
+}
+
+CheesePizza --[hidden] ClamPizza
+ClamPizza --[hidden] PepperoniPizza
+PepperoniPizza --[hidden] VeggiePizza
+
+
+
+interface PizzaIngredientFactory <<Creator>>
+{
+    + {abstract} Cheese createCheese()
+    + {abstract} Clams createClams()
+    + {abstract} Dough createDough()
+    + {abstract} Pepperoni createPepperoni()
+    + {abstract} Sauce createSauce()
+    + {abstract} Veggies[] createVeggies()
+}
+
+class CaliforniaPizzaIngredientFactory implements PizzaIngredientFactory
+{
+    + Cheese createCheese() {override}
+    + Clams createClams() {override}
+    + Dough createDough() {override}
+    + Pepperoni createPepperoni() {override}
+    + Sauce createSauce() {override}
+    + Veggies[] createVeggies() {override}
+}
+
+class ChicagoPizzaIngredientFactory
+{
+    + Cheese createCheese() {override}
+    + Clams createClams() {override}
+    + Dough createDough() {override}
+    + Pepperoni createPepperoni() {override}
+    + Sauce createSauce() {override}
+    + Veggies[] createVeggies() {override}
+}
+
+class NYPizzaIngredientFactory
+{
+    + Cheese createCheese() {override}
+    + Clams createClams() {override}
+    + Dough createDough() {override}
+    + Pepperoni createPepperoni() {override}
+    + Sauce createSauce() {override}
+    + Veggies[] createVeggies() {override}
+}
+
+CaliforniaPizzaIngredientFactory --[hidden] ChicagoPizzaIngredientFactory
+ChicagoPizzaIngredientFactory --[hidden] NYPizzaIngredientFactory
+
+
+
+interface Cheese <<Product>>
+{
+    + {abstract} String toString()
+}
+
+class GoatCheese implements Cheese
+{
+    + String toString() {override}
+}
+
+class MozzarellaCheese
+{
+    + String toString() {override}
+}
+
+class ReggianoCheese
+{
+    + String toString() {override}
+}
+
+GoatCheese --[hidden] MozzarellaCheese
+MozzarellaCheese --[hidden] ReggianoCheese
+
+
+
+interface Clams <<Product>>
+{
+    + {abstract} String toString()
+}
+
+class FreshClams implements Clams
+{
+    + String toString() {override}
+}
+
+class FrozenClams
+{
+    + String toString() {override}
+}
+
+FreshClams --[hidden] FrozenClams
+
+
+
+interface Dough <<Product>>
+{
+    + {abstract} String toString()
+}
+
+class ThickCrustDough implements Dough
+{
+    + String toString() {override}
+}
+
+class ThinCrustDough
+{
+    + String toString() {override}
+}
+
+ThickCrustDough --[hidden] ThinCrustDough
+
+
+
+interface Pepperoni <<Product>>
+{
+    + {abstract} String toString()
+}
+
+class SlicedPepperoni implements Pepperoni
+{
+    + String toString() {override}
+}
+
+
+
+interface Sauce <<Product>>
+{
+    + {abstract} String toString()
+}
+
+class MarinaraSauce implements Sauce
+{
+    + String toString() {override}
+}
+
+class PlumTomatoSauce
+{
+    + String toString() {override}
+}
+
+class WhiteSauce
+{
+    + String toString() {override}
+}
+
+MarinaraSauce --[hidden] PlumTomatoSauce
+PlumTomatoSauce --[hidden] WhiteSauce
+
+
+
+interface Veggies <<Product>>
+{
+    + {abstract} String toString()
+}
+
+class BlackOlives implements Veggies
+{
+    + String toString() {override}
+}
+
+class Eggplant
+{
+    + String toString() {override}
+}
+
+class Garlic
+{
+    + String toString() {override}
+}
+
+class Mushroom
+{
+    + String toString() {override}
+}
+
+class Onion
+{
+    + String toString() {override}
+}
+
+class RedPepper
+{
+    + String toString() {override}
+}
+
+class Spinach
+{
+    + String toString() {override}
+}
+
+class SunDriedTomatoes
+{
+    + String toString() {override}
+}
+
+BlackOlives --[hidden] Eggplant
+Eggplant --[hidden] Garlic
+Garlic--[hidden] Mushroom
+Mushroom --[hidden] Onion
+Onion --[hidden] RedPepper
+RedPepper --[hidden] Spinach
+Spinach --[hidden] SunDriedTomatoes
+
+@enduml

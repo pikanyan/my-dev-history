@@ -1,0 +1,148 @@
+@startuml Command
+
+class RemoteControl <<Invoker>>
+{
+    - Command[] onCommands
+    - Command[] offCommands
+    - Command undoCommand
+
+    + RemoteControl()
+    |||
+    + void setCommand(int, Command, Command)
+    |||
+    + void onButtonWasPressed(int)
+    + void offButtonWasPressed(int)
+    + void undoButtonWasPushed()
+    |||
+    + String toString()
+}
+
+
+
+interface Command <<Command>>
+{
+    + void execute() {abstract}
+    + void undo() {abstract}
+}
+
+class CeilingFanHighCommand implements Command
+{
+    - CeilingFan ceilingFan
+    - int prevSpeed
+
+    + CeilingFanHighCommand(CeilingFan)
+    |||
+    + void execute() {override}
+    + void undo() {override}
+}
+
+class CeilingFanMediumCommand
+{
+    - CeilingFan ceilingFan
+    - int prevSpeed
+
+    + CeilingFanMediumCommand(CeilingFan)
+    |||
+    + void execute() {override}
+    + void undo() {override}
+}
+
+class CeilingFanLowCommand
+{
+    - CeilingFan ceilingFan
+    - int prevSpeed
+
+    + CeilingFanLowCommand(CeilingFan)
+    |||
+    + void execute() {override}
+    + void undo() {override}
+}
+
+class CeilingFanOffCommand
+{
+    - CeilingFan ceilingFan
+    - int prevSpeed
+
+    + CeilingFanOffCommand(CeilingFan)
+    |||
+    + void execute() {override}
+    + void undo() {override}
+}
+
+class LightOnCommand
+{
+    - Light light
+
+    + LightOnCommand(Light)
+    |||
+    + void execute() {override}
+    + void undo() {override}
+}
+
+class LightOffCommand
+{
+    - Light light
+
+    + LightOffCommand(Light)
+    |||
+    + void execute() {override}
+    + void undo() {override}
+}
+
+class MacroCommand
+{
+    - Command[] commands
+
+    + MacroCommand(Command[] commands)
+    |||
+    + void execute() {override}
+    + void undo() {override}
+}
+
+class NoCommand
+{
+    + void execute() {override}
+    + void undo() {override}
+}
+
+
+
+class CeilingFan <<Receiver>>
+{
+    - int level
+    - String location
+    
+    + high()
+    + medium()
+    + low()
+    + off()
+}
+
+class Light
+{
+    - String location
+    
+    + Light(String location)
+    |||
+    + on()
+    + off()
+}
+
+
+
+RemoteControl o-- Command
+
+CeilingFanHighCommand --[hidden] CeilingFanMediumCommand
+CeilingFanMediumCommand --[hidden] CeilingFanLowCommand
+CeilingFanLowCommand --[hidden] CeilingFanOffCommand
+CeilingFanOffCommand o-- CeilingFan
+
+CeilingFanHighCommand -[hidden] LightOnCommand
+CeilingFanOffCommand -[hidden] LightOffCommand
+LightOffCommand --[hidden] Light
+
+LightOnCommand -[hidden] MacroCommand
+
+MacroCommand -[hidden] NoCommand
+
+@enduml

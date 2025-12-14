@@ -1,0 +1,47 @@
+@startuml Factory
+
+framework.Factory -> framework.Product
+
+
+
+package framework
+{
+   abstract Factory <<Factory>>
+   {
+      + Product create(String owner) {final}
+      |||
+      + Product createProduct(String owner) {abstract}
+      + void registerProduct(Product product) {abstract}
+   }
+
+   abstract Product <<Product>>
+   {
+      + void use() {abstract}
+   }
+}
+
+package idcard
+{
+   class IDCardFactory extends framework.Factory
+   {
+      - List<String> owners
+
+      + Product createProduct(String owner) {override}
+      + void registerProduct(Product product) {override}
+      |||
+      + List getOwners()
+   }
+
+   class IDCard extends framework.Product
+   {
+      - String owner
+
+      + IDCard(String owner)
+      |||
+      + void use() {override}
+      |||
+      + String getOwner()
+   }
+}
+
+@enduml

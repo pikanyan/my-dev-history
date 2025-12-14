@@ -1,0 +1,28 @@
+@startuml
+
+
+
+class Observer <<観察者>>
+{
+    + {abstract} update(value : int) : void
+}
+
+class ObserverA
+{
+    + update(value : int) : void
+}
+
+Observer <|-- ObserverA
+
+
+
+class Subject <<被観察者>>
+{
+    - value_ : int
+
+    + set_value(value : int)  : void 
+}
+
+
+
+@enduml

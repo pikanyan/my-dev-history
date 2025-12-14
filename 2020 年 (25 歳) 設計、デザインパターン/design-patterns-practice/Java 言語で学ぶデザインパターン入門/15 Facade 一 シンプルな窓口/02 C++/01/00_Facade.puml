@@ -1,0 +1,27 @@
+@startuml
+
+
+
+class SubSystemA
+{
+    + operate() : std::string
+}
+
+class SubSystemB
+{
+    + operate() : std::string
+}
+
+
+
+class Facade
+{
+    - subSystemA_ : std::shared_ptr<SubSystemA>
+    - subSystemB_ : std::shared_ptr<SubSystemB>
+
+    + operate() : std::string
+}
+
+
+
+@enduml

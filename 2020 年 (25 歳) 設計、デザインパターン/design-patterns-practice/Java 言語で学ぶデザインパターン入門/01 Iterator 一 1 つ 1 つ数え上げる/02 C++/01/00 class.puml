@@ -1,0 +1,74 @@
+@startuml Iterator
+
+Iterator o- Aggregate : < create
+Aggregate *- Element
+
+Iterator <|-- BookShelfIterator
+Aggregate <|-- BookShelf
+Element <|-- Book
+
+
+
+abstract Aggregate
+{
+   - std::vector<std::unique_ptr<Element>> elements_
+
+   + explicit Aggregate()
+   + virtual ~Aggregate()
+   |||
+   + {abstract} virtual std::unique_ptr<Iterator> iterator() const
+   |||
+   + int size() const
+   |||
+   + void append(std::unique_ptr<Element>)
+   + const Element& element(int) const
+}
+
+class BookShelf
+{
+   + explicit BookShelf()
+   + virtual ~BookShelf()
+   |||
+   + std::unique_ptr<Iterator> iterator() const override
+}
+
+
+
+class Element
+{
+   - const std::string name_
+
+   + explicit Element(const std::string&)
+   + virtual ~Element()
+   |||
+   + const std::string& name() const
+}
+
+class Book
+{
+   + explicit Book(const std::string&)
+   + virtual ~Book()
+}
+
+
+
+class Iterator
+{
+    - const Aggregate& aggregate_
+    - int index_
+
+    + explicit Iterator(const Aggregate&)
+    + virtual ~Iterator()
+    |||
+    + bool hasNow() const
+    + const Element& now() const
+    + void nextNow()
+}
+
+class BookShelfIterator
+{
+   + explicit BookShelfIterator(const Aggregate&)
+   + virtual ~BookShelfIterator()
+}
+
+@enduml

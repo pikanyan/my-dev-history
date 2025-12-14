@@ -1,0 +1,31 @@
+@startuml
+
+
+
+class Product
+{
+    - _part1 : std::string
+    - _part2 : std::string
+}
+
+class ProductA
+{
+}
+
+class ProductB
+{
+}
+
+Product <|-- ProductA
+Product <|-- ProductB
+
+
+
+class Factory <<T>>
+{
+    + create_product(const std::string& name) : unique_ptr<Product>
+}
+
+
+
+@enduml

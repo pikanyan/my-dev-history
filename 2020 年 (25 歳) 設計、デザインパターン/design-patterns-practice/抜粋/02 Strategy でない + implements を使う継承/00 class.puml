@@ -1,0 +1,48 @@
+@startuml not Strategy
+
+abstract Duck
+{
+    + void display() {abstract}
+    + void swim()
+}
+
+interface Flyable
+{
+    + void fly() {abstract}
+}
+
+interface Quackable
+{
+    + void quack() {abstract}
+}
+
+class DecoyDuck extends Duck
+{
+    + void display() {override}
+}
+
+class MallardDuck
+{
+    + void display() {override}
+    + void fly() {override}
+    + void quack() {override}
+}
+
+class RedheadDuck
+{
+    + void display() {override}
+    + void fly() {override}
+    + void quack() {override}
+}
+
+class RubberDuck
+{
+    + void display() {override}
+    + void quack() {override}
+}
+
+DecoyDuck --[hidden] MallardDuck
+MallardDuck --[hidden] RedheadDuck
+RedheadDuck --[hidden] RubberDuck
+
+@enduml

@@ -1,0 +1,60 @@
+@startuml Template Method
+
+RequestHandlerInterface <|.. Security.AbstractCheckedHandler
+
+Security.AbstractCheckedHandler <|-- Security.UserAccessCheckedHandler
+Security.AbstractCheckedHandler <|-- Security.ResourceCheckedHandler
+
+Security.UserAccessCheckerInterface <.. Security.UserAccessCheckedHandler
+Security.ResourceCheckerInterface <.. Security.ResourceCheckedHandler
+
+Security.UserAccessCheckerInterface <|.. Security.UserAccessChecker
+Security.ResourceCheckerInterface <|.. Security.ResourceChecker
+
+
+
+package Security
+{
+    abstract AbstractCheckedHandler
+    {
+        + Response handle(Request)
+        |||
+        - bool checkCommonly(Request)
+        # {abstract} bool checkExternally(Request)
+        |||
+        - Request preProcessRequest(Request)
+        # {abstract} Response requestToResponse(Request)
+        - Response postProcessResponse(Response)
+    }
+
+    class UserAccessCheckedHandler
+    {
+        - UserAccessCheckerInterface userAccessChecker
+
+        # bool checkExternally(Request)
+        # Response requestToResponse(Request)
+    }
+
+    class ResourceCheckedHandler
+    {
+        - ResourceCheckerInterface resourceChecker
+
+        # bool checkExternally(Request)
+        # Response requestToResponse(Request)
+    }
+
+    interface UserAccessCheckerInterface
+    {
+        + bool isAllowed($user)
+    }
+
+    interface ResourceCheckerInterface
+    {
+        + bool isAllowed($resource)
+    }
+}
+
+interface RequestHandlerInterface
+{
+    + Response handle(Request)
+}

@@ -1,0 +1,71 @@
+@startuml Bridge
+
+PrizeItemInterface <|.. PrizeItem
+
+PrizeItem o- PrizeMaterial
+PrizeItem o- PrizeShape
+
+PrizeMaterial <|-- PrizeMaterialGold
+PrizeMaterial <|-- PrizeMaterialSilver
+PrizeMaterial <|-- PrizeMaterialBronze
+
+PrizeShape <|-- PrizeShapeMedal
+PrizeShape <|-- PrizeShapeCup
+
+
+
+interface PrizeItemInterface
+{
+    + Material getMaterial()
+    + Shape getShape()
+}
+
+class PrizeItem
+{
+    # PrizeMaterial $material
+    # PrizeShape $shape
+    
+    + construct(PrizeMaterial, PrizeShape)
+    |||
+    + Material getMaterial()
+    + Shape getShape()
+}
+
+
+
+abstract PrizeMaterial
+{
+    + Material get()
+}
+
+abstract PrizeShape
+{
+    + Shape get()
+}
+
+
+
+class PrizeMaterialGold
+{
+    + Material get()
+}
+
+class PrizeMaterialSilver
+{
+    + Material get()
+}
+
+class PrizeMaterialBronze
+{
+    + Material get()
+}
+
+class PrizeShapeMedal
+{
+    + Shape get()
+}
+
+class PrizeShapeCup
+{
+    + Shape get()
+}

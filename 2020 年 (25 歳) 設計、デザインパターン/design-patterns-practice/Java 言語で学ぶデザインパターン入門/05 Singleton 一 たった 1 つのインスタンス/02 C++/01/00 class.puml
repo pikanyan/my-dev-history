@@ -1,0 +1,11 @@
+@startuml Singleton
+
+class Singleton
+{
+   - explicit Singleton()
+   - virtual ~Singleton()
+   |||
+   + {static} Singleton& instance()
+}
+
+@enduml

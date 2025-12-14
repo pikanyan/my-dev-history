@@ -1,0 +1,48 @@
+@startuml AbstractFactory
+
+Buyer.Pet <|-- Shop.Cat
+Buyer.Pet <|-- Shop.Dog
+Buyer.PetShopInterface <|.. Shop.CatAndDogOnlyPetShop
+
+Buyer.PetBuyer --> Buyer.Pet
+Buyer.PetBuyer --> Buyer.PetShopInterface
+
+
+
+package Buyer
+{
+    abstract Pet
+    {
+        + {abstract} string getType()
+    }
+
+    interface PetShopInterface
+    {
+        + Pet createPet(string)
+    }
+
+    class PetBuyer
+    {
+        + void buyPet(PetShopInterface, string)
+    }
+}
+
+
+
+package Shop
+{
+    class Cat
+    {
+        + string getType()
+    }
+
+    class Dog
+    {
+        + string getType()
+    }
+
+    class CatAndDogOnlyPetShop
+    {
+        + Pet createPet(string)
+    }
+}

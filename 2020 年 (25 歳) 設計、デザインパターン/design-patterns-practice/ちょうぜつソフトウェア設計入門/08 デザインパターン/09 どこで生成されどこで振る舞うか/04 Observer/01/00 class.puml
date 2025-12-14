@@ -1,0 +1,94 @@
+@startuml Command
+
+UI.SelectionUI o- UI.SelectionItem
+UI.SelectionItem o- Common.CommandInterface
+
+UseCase.Pet <|-- UseCase.Cat
+UseCase.Pet <|-- UseCase.Dog
+
+Common.CommandInterface <|.. UseCase.Command.BuyPetCommand
+Common.CommandInterface <|.. UseCase.Command.CancelBuyingCommand
+
+
+package Common
+{
+    interface CommandInterface
+    {
+        + void invoke()
+    }
+}
+
+
+
+package UI
+{
+    class SelectionItem
+    {
+        + string label
+        + CommandInterface command
+
+        + constract()
+    }
+
+
+
+    class SelectionUI
+    {
+        # array selectionItems
+
+        + void registerCommand(string, CommandInterface)
+        + string help()
+        + void select(int)
+    }
+}
+
+
+
+package UseCase
+{
+    class PetShop
+    {
+
+    }
+
+
+
+    abstract Pet
+    {
+
+    }
+
+    class Cat
+    {
+
+    }
+
+    class Dog
+    {
+
+    }
+
+
+
+    package Command
+    {
+        class BuyPetCommand
+        {
+            # PetShop shop
+            # Pet pet
+
+            + constract()
+            |||
+            + void invoke()
+        }
+
+        class CancelBuyingCommand
+        {
+            # PetShop shop
+
+            + constract()
+            |||
+            + void invoke()
+        }
+    }
+}

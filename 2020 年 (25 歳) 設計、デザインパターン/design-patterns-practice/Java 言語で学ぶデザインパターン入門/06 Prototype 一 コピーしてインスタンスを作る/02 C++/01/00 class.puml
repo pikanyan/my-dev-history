@@ -1,0 +1,49 @@
+@startuml Prototype
+
+Factory *- Product
+Factory <|-- IDCardFactory
+Product <|-- IDCard
+
+
+
+abstract class Factory
+{
+   - std::vector<std::unique_ptr<Product>> products_
+
+   + {explicit} Factory()
+   + {virtual} ~Factory()
+
+   + Product* create(const std::string&)
+
+   + {abstract} {virtual} std::unique_ptr<Product> create_(const std::string&)
+}
+
+class IDCardFactory
+{
+   + {explicit}  IDCardFactory()
+   + {virtual} ~IDCardFactory()
+
+   + {override} std::shared_ptr<Product> create(const std::string&)
+}
+
+
+
+abstract class Product
+{
+   -std::string owner_
+   
+   + {explicit} Product(const std::string&)
+   + {virtual} ~Product()
+
+   + {abstract} {virtual} void use()
+}
+
+class IDCard
+{
+   + {explicit}  IDCard(const std::string&)
+   + {virtual} ~IDCard()
+
+   + {override} void use()
+}
+
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+
+
+
+class Product
+{
+    - partA_ : std::string
+    - partB_ : std::string
+}
+
+
+
+Builder <|-- BuilderA
+
+class Builder <<abstract>>
+{
+    + {abstract} build_product() : std::unique_ptr<Product>
+}
+
+class BuilderA
+{
+    + build_product() : std::unique_ptr<Product>
+}
+
+
+
+class Director
+{
+    - builder_ : std::unique_ptr<Builder>
+
+    + construct_product() : std::unique_ptr<Product>
+}
+
+
+
+@enduml

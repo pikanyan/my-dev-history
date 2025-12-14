@@ -1,0 +1,28 @@
+@startuml
+
+
+
+Subject <|-- SubjectA
+Subject <|-- Proxy
+
+
+
+class Subject <<abstract>>
+{
+    + {abstract} request() : void
+}
+
+class SubjectA
+{
+    + request() : void
+}
+
+class Proxy
+{
+    - subjectA_ : std::shared_ptr<SubjectA>
+    + request()  : void 
+}
+
+
+
+@enduml

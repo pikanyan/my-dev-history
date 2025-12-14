@@ -1,0 +1,31 @@
+@startuml Strategy
+
+class Sorter
+{
+    - SortStrategy strategy
+
+    + void setStrategy(SortStrategy strategy)
+    |||
+    + void sortNumbers(int[] numbers)
+}
+
+
+
+interface SortStrategy
+{
+    + void sort(int[] numbers) {abstract}
+}
+
+class MergeSortStrategy implements SortStrategy
+{
+    + void sort(int[] numbers) {override}
+}
+
+class QuickSortStrategy
+{
+    + void sort(int[] numbers) {override}
+}
+
+MergeSortStrategy --[hidden] QuickSortStrategy
+
+@enduml

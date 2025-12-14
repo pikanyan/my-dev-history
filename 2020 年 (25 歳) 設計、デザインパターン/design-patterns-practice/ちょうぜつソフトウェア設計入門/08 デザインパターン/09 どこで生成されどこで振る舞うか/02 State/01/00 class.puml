@@ -1,0 +1,37 @@
+@startuml State
+
+SpeedMeterState <|-- SafeState
+SpeedMeterState <|-- DangerState
+
+
+
+class SpeedMeter
+{
+    # float speed
+    # SpeedMeterState currentState
+
+    + construct()
+    |||
+    + void setSpeed(float)
+    + string display()
+}
+
+
+
+abstract SpeedMeterState
+{
+    + {abstract} SpeedMeterState nextState(float)
+    + {abstract} string getColor()
+}
+
+class SafeState
+{
+    + SpeedMeterState nextState(float)
+    + string getColor()
+}
+
+class DangerState
+{
+    + SpeedMeterState nextState(float)
+    + string getColor()
+}

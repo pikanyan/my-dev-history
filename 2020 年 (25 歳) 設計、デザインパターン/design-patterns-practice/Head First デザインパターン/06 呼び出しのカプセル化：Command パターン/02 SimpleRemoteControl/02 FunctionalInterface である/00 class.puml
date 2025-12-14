@@ -1,0 +1,37 @@
+@startuml Command
+
+class SimpleRemoteControl <<Invoker>>
+{
+    - Command slot
+
+    + void setCommand(Command command)
+    |||
+    + void buttonWasPressed()
+}
+
+interface Command <<Command>>
+{
+    + void execute() {abstract}
+}
+
+class GarageDoor <<Receiver>>
+{
+    + void on()
+    + void down()
+    + void stop()
+    + void lightOn()
+    + void lightOff()
+}
+
+class Light
+{
+    + void on()
+    + void off()
+}
+
+SimpleRemoteControl o-- Command
+Command --[hidden] GarageDoor
+
+GarageDoor -[hidden] Light
+
+@enduml

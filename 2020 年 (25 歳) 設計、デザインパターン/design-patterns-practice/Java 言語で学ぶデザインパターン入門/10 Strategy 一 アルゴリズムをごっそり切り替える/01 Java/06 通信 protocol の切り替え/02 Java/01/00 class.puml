@@ -1,0 +1,33 @@
+@startuml Strategy
+
+class Client
+{
+    - Protocol protocol
+
+    + Client(Protocol protocol)
+    |||
+    + void setProtocol(Protocol protocol)
+    |||
+    + void sendData(String data)
+}
+
+
+
+interface Protocol
+{
+    + void send(String data) {abstract}
+}
+
+class FtpProtocol implements Protocol
+{
+    + void apply() {override}
+}
+
+class HttpProtocol
+{
+    + void send(String data) {override}
+}
+
+FtpProtocol --[hidden] HttpProtocol
+
+@enduml

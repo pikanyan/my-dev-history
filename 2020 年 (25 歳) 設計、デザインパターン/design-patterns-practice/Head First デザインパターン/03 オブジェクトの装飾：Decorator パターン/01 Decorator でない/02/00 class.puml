@@ -1,0 +1,52 @@
+@startuml not Decorator
+
+class Beverage
+{
+    # String description = "Unknown Beverage"
+    - boolean milk = false
+    - boolean soy = false
+    - boolean mocha = false
+    - boolean whip = false
+
+    + String getDescription()
+    + double cost()
+    |||
+    + void setMilk(boolean)
+    + boolean hasMilk()
+    + void setSoy(boolean)
+    + boolean hasSoy()
+    + void setMocha(boolean)
+    + boolean hasMocha()
+    + void setWhip(boolean)
+    + boolean hasWhip()
+}
+
+class DarkRoast extends Beverage
+{
+    + DarkRoast()
+    |||
+    + double cost() {override}
+}
+
+class Decaf extends Beverage
+{
+    +Decaf()
+    |||
+    +double cost() {override}
+}
+
+class Espresso extends Beverage
+{
+    + Espresso()
+    |||
+    + double cost() {override}
+}
+
+class HouseBlend extends Beverage
+{
+    + HouseBlend()
+    |||
+    + double cost() {override}
+}
+
+@enduml

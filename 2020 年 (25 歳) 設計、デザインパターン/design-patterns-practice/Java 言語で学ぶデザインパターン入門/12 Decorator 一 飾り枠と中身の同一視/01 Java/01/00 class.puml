@@ -1,0 +1,56 @@
+@startuml Decorator
+
+interface Display <<Component>>
+{
+    + int getColumns() {abstract}
+    + int getRows() {abstract}
+    + String getRowText(int row) {abstract}
+
+    + void show() {final}
+}
+
+class StringDisplay extends Display
+{
+    - String string
+
+    + StringDisplay(String string)
+    |||
+    + int getColumns() {override}
+    + int getRows() {override}
+    + String getRowText(int row) {override}
+}
+
+
+
+abstract Border <<Decorator>> extends Display
+{
+    # Display display
+
+    # Border(Display display)
+}
+
+class FullBorder extends Border
+{
+    + FullBorder(Display display)
+    |||
+    + int getColumns() {override}
+    + int getRows() {override}
+    + String getRowText(int row) {override}
+    |||
+    - String makeLine(char ch, int count)
+}
+
+class SideBorder
+{
+    - char borderChar
+    
+    + SideBorder(Display display, char ch)
+    |||
+    + int getColumns() {override}
+    + int getRows() {override}
+    + String getRowText(int row) {override}
+}
+
+FullBorder --[hidden] SideBorder
+
+@enduml

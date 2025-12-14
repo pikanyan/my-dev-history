@@ -1,0 +1,86 @@
+@startuml Observer
+
+interface Subject <<Subject>>
+{
+    + void registerObserver(Observer o) {abstract}
+    + void removeObserver(Observer o) {abstract}
+    + void notifyObservers() {abstract}
+}
+
+class WeatherData implements Subject
+{
+    - List<Observer> observers
+    - float temp
+    - float humidity
+    - float pressure
+    |||
+    + WeatherData()
+    + void registerObserver(Observer o) {override}
+    + void removeObserver(Observer o) {override}
+    + void notifyObservers() {override}
+    |||
+    + void measurementsChanged()
+    + void setMeasurements(float temp, float humidity, float pressure)
+    |||
+    + float getTemperature()
+    + float getHumidity()
+    + float getPressure()
+}
+
+
+
+interface Observer <<Observer>>
+{
+    + void update(float temp, float humidity, float pressure) {abstract}
+}
+
+interface DisplayElement
+{
+    + void display() {abstract}
+}
+
+class CurrentConditionsDisplay implements Observer, DisplayElement
+{
+    - float temperature
+    - float humidity
+    - Subject weatherData
+    |||
+    + CurrentConditionsDisplay(Subject weatherData)
+    |||
+    + void update(float temp, float humidity, float pressure) {override}
+    |||
+    + void display() {override}
+}
+
+class ForecastDisplay
+{
+    - float currentPressure = 29.92f
+    - float lastPressure
+    - Subject weatherData
+    |||
+    + ForecastDisplay(Subject weatherData)
+    |||
+    + void update(float temp, float humidity, float pressure) {override}
+    |||
+    + void display() {override}
+}
+
+class StatisticsDisplay
+{
+    - float maxTemp = 0.0f
+    - float minTemp = 200
+    - float tempSum = 0.0f
+    - int numReadings
+    - Subject weatherData
+    |||
+    + StatisticsDisplay(Subject weatherData)
+    |||
+    + void update(float temp, float humidity, float pressure) {override}
+    |||
+    + void display() {override}
+}
+
+CurrentConditionsDisplay --[hidden] ForecastDisplay
+ForecastDisplay --[hidden] StatisticsDisplay
+
+@enduml

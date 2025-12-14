@@ -1,0 +1,29 @@
+@startuml Strategy
+
+ExpressionInterface <|.. AbstractExpression
+AbstractExpression <|-- PlusExpression
+
+
+
+interface ExpressionInterface
+{
+    + void setVariables(array)
+    + float evaluate()
+}
+
+abstract AbstractExpression
+{
+    # array vars
+    
+    + void setVariables(array)
+    + float evaluate()
+    |||
+    # {abstract} bool validate(array)
+    # {abstract} float calculate()
+}
+
+class PlusExpression
+{
+    # bool validate(array)
+    # float calculate()
+}

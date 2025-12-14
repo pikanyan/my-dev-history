@@ -1,0 +1,46 @@
+@startuml Command
+
+ObservableInterface <|.. DataStore
+LoggerInterface <|.. Logger
+
+LoggingObserver o- LoggerInterface
+
+
+
+interface ObservableInterface
+{
+    + {abstract} void addObserver(string, callable)
+}
+
+class DataStore
+{
+    # array observersMap
+
+    + void addObserver(string, callable)
+    |||
+    # void notify(string, mixed)
+    |||
+    + void save(mixed)
+    + mixed load()
+}
+
+interface LoggerInterface
+{
+    + {abstract} void info(string)
+}
+
+class Logger
+{
+    + void info(string)
+}
+
+
+
+class LoggingObserver
+{
+    # LoggerInterface logger
+
+    + construct()
+    |||
+    + void watch(ObservableInterface, string)
+}

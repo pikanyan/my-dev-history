@@ -1,0 +1,33 @@
+@startuml Strategy
+
+class UIContext
+{
+    - Theme theme
+
+    + UIContext(Theme theme)
+    |||
+    + void setTheme(Theme theme)
+    |||
+    + void applyTheme()
+}
+
+
+
+interface Theme
+{
+    + void apply() {abstract}
+}
+
+class DarkTheme implements Theme
+{
+    + void apply() {override}
+}
+
+class LightTheme
+{
+    + void apply() {override}
+}
+
+DarkTheme --[hidden] LightTheme
+
+@enduml

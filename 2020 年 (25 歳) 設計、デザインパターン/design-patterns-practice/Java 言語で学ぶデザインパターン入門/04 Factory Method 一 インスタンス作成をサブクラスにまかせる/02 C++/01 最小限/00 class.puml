@@ -1,0 +1,43 @@
+@startuml Factory
+
+Factory *- Product
+Factory <|-- FactoryA
+Product <|-- ProductA
+
+
+
+abstract class Factory
+{
+   + explicit Factory()
+   + virtual ~Factory()
+
+   + {abstract} virtual std::unique_ptr<Product> create()
+}
+
+class FactoryA
+{
+   + explicit FactoryA()
+   + virtual ~FactoryA()
+
+   + std::unique_ptr<Product> create() override
+}
+
+
+
+abstract class Product
+{
+   + explicit Product()
+   + virtual ~Product()
+
+   + {abstract} virtual void use()
+}
+
+class ProductA
+{
+   + explicit ProductA()
+   + virtual ~ProductA()
+
+   + void use() override
+}
+
+@enduml

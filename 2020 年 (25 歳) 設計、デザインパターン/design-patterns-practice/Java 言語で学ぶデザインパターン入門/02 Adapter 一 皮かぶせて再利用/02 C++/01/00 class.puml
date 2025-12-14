@@ -1,0 +1,41 @@
+@startuml Adapter
+
+Print <|-- PrintBanner
+PrintBanner o- Banner
+
+
+
+abstract class Print <<Target>>
+{
+   + explicit Print()
+   + virtual ~Print()
+   |||
+   + {abstract} virtual void printWeak()
+   + {abstract} virtual void printStrong()
+}
+
+class PrintBanner <<Adapter>>
+{
+   - const std::unique_ptr<Banner> banner_
+
+   + explicit PrintBanner(const std::string&)
+   + virtual ~PrintBanner()
+   |||
+   + void printWeak() override
+   + void printStrong() override
+}
+
+
+
+class Banner <<Adaptee>>
+{
+   - const std::string str_
+
+   + explicit Banner(std::string&)
+   + virtual ~Banner()
+   |||
+   + void show_withParen() const
+   + void show_withAster() const
+}
+
+@enduml

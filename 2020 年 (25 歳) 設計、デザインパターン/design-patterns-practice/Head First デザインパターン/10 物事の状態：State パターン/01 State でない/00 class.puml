@@ -1,0 +1,25 @@
+@startuml State
+
+class GumballMachine
+{
+    # int SOLD_OUT = 0 {static} {final}
+    # int NO_QUARTER = 1 {static} {final}
+    # int HAS_QUARTER = 2 {static} {final}
+    # int SOLD = 3 {static} {final}
+    |||
+    # int state = SOLD_OUT
+    # int count = 0
+
+    + GumballMachine(int count)
+    |||
+    + void insertQuarter()
+    + void ejectQuarter()
+    + void turnCrank()
+    + void dispense()
+    |||
+    + void refill(int numGumBalls)
+    |||
+    + String toString()
+}
+
+@enduml

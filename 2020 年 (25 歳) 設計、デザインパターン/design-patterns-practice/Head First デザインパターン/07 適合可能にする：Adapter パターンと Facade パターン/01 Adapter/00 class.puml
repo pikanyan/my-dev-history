@@ -1,0 +1,41 @@
+@startuml class
+
+interface Duck <<Target>>
+{
+    + {abstract} void quack()
+    + {abstract} void fly()
+}
+
+class MallardDuck implements Duck
+{
+    + void quack()
+    + void fly()
+}
+
+
+
+interface Turkey <<Adaptee>>
+{
+    + {abstract} void gobble()
+    + {abstract} void fly()
+}
+
+class WildTurkey implements Turkey
+{
+    + void gobble()
+    + void fly()
+}
+
+
+
+class TurkeyAdapter <<Adapter>> implements Duck
+{
+    - Turkey turkey
+
+    + TurkeyAdapter(Turkey turkey)
+    |||
+    + void quack()
+    + void fly()
+}
+
+@enduml
