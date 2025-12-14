@@ -1,0 +1,31 @@
+﻿<!--Wall.xaml-->
+    
+<UserControl x:Class="WPF.Wall"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF"
+             mc:Ignorable="d" >
+
+    <Canvas Width="320" Height="480">
+        <Rectangle Canvas.Left="{Binding TopWall_left}"
+                   Canvas.Top="{Binding TopWall_top}"
+                   Width="{Binding TopWall_width}"
+                   Height="{Binding TopWall_height}"
+                   Fill="Red"/>
+        
+        <Rectangle Canvas.Left="{Binding LeftWall_left}"
+                   Canvas.Top="{Binding LeftWall_top}"
+                   Width="{Binding LeftWall_width}"
+                   Height="{Binding LeftWall_height}"
+                   Fill="Blue"/>
+
+        <Rectangle Canvas.Left="{Binding RightWall_left}"
+                   Canvas.Top="{Binding RightWall_top}"
+                   Width="{Binding RightWall_width}"
+                   Height="{Binding RightWall_height}"
+                   Fill="Yellow"/>
+        
+    </Canvas>
+</UserControl>
